@@ -25,7 +25,11 @@ h1,h2,h3 { font-family: var(--font-display); text-wrap: balance; letter-spacing:
 p { text-wrap: pretty; }
 .tnum { font-variant-numeric: tabular-nums; }
 .btn { transition: transform 160ms var(--ease-out-strong), background-color 200ms ease; }
+.btn:hover { transform: translateY(-1px); }
 .btn:active { transform: scale(0.97); }
+.btn svg { transition: transform 200ms var(--ease-out-strong); }
+.btn:hover svg { transform: translateX(3px); }
+.text-text { color: var(--color-text); }
 .grain { background-image: radial-gradient(rgba(12,59,122,.05) 1px, transparent 1px); background-size: 4px 4px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
