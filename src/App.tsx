@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, MotionConfig, AnimatePresence, animate, useMotionValue, useTransform, useScroll, useSpring, useInView, useReducedMotion } from 'motion/react'
+import { PnlRuler, PnlStrip } from './PnlRuler'
 import { ArrowRight, ArrowUpRight, Check, Xmark, Calendar, Mail, Phone, MapPin, Link as LinkIcon, Database, Compass, Shop, Globe, Coins, StatsUpSquare, Building, Sparks, Menu } from 'iconoir-react'
 
 const ease = [0.23, 1, 0.32, 1] as const
@@ -76,11 +77,6 @@ function Dashboard() {
 }
 
 
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const x = useSpring(scrollYProgress, { stiffness: 220, damping: 40, restDelta: 0.001 })
-  return <motion.div className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gold" style={{ scaleX: x }} aria-hidden />
-}
 
 function InViewCounter({ to, prefix = '€ ' }: { to: number; prefix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -160,6 +156,7 @@ function Header() {
           <button className="grid size-10 place-items-center rounded-full border border-line lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}><Menu width={20} height={20} /></button>
         </div>
       </div>
+      <PnlStrip />
       {open && <nav className="border-t border-line px-5 py-3 lg:hidden">{links.map(([l, h]) => <a key={h} href={h} onClick={() => setOpen(false)} className="block py-2.5 text-[16px]">{l}</a>)}</nav>}
     </header>
   )
@@ -268,8 +265,7 @@ function Cookie() {
 
 export default function App() {
   return (
-    <MotionConfig reducedMotion="user">
-      <ScrollProgress />
+    <MotionConfig reducedMotion="user"><div className="lg:pr-[8.5rem]">
       <Header />
       <main>
         <Hero />
@@ -354,7 +350,7 @@ export default function App() {
           </motion.div>
         </section>
       </main>
-      <footer className="bg-ink text-paper">
+      <footer className="bg-ink text-paper lg:-mr-[8.5rem] lg:pr-[8.5rem]">
         <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div><Logo light /><p className="mt-6 max-w-[30ch] text-[15px] text-paper">Administratie, aangiften en financieel inzicht voor webshops.</p></div>
           <div><h4 className="text-[15px] font-semibold text-gold-light">Diensten</h4><ul className="mt-3 space-y-2 text-[15px] text-paper"><li><a href="#tarieven">Tarieven</a></li><li><a href="#werkwijze">Werkwijze</a></li><li><a href="#dashboard">Dashboard</a></li><li><a href="#tarieven">Virtual CFO</a></li></ul></div>
@@ -363,7 +359,8 @@ export default function App() {
         </div>
         <div className="mx-auto max-w-[1240px] border-t border-navy px-5 py-5 text-[14px] text-paper sm:px-8">© 2026 DT Admin B.V.</div>
       </footer>
+      <PnlRuler />
       <Cookie />
-    </MotionConfig>
+    </div></MotionConfig>
   )
 }

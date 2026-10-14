@@ -33,9 +33,19 @@ p { text-wrap: pretty; }
 .btn:hover svg { transform: translateX(3px); }
 .text-text { color: var(--color-text); }
 .grain { background-image: radial-gradient(rgba(12,59,122,.05) 1px, transparent 1px); background-size: 4px 4px; }
+.pnl-ruler { font-size: 14px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *,*::before,*::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
 /* Gouden brackets, motief uit het logo */
 .brackets::before, .brackets::after { content: ""; position: absolute; width: 44px; height: 44px; border: 3px solid var(--color-gold); pointer-events: none; z-index: 1; }
 .brackets::before { top: -12px; left: -12px; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
 .brackets::after { bottom: -12px; right: -12px; border-left: 0; border-top: 0; border-bottom-right-radius: 14px; }
+
+/* P&L-liniaal: label altijd zichtbaar waar de marge breed genoeg is, anders alleen tijdens scrollen/hover */
+.pnl-chip { opacity: 0; transform: translateX(6px); transition: opacity 220ms var(--ease-out-strong), transform 220ms var(--ease-out-strong); }
+.pnl-chip[data-active="1"], .pnl-ruler:hover .pnl-chip { opacity: 1; transform: none; }
+@media (min-width: 1520px) { .pnl-chip { opacity: 1; transform: none; } }
+
+.pnl-ruler [data-done="1"] { border-color: var(--color-gold); background: var(--color-ink); }
+.pnl-ruler [data-done="1"] p { color: var(--color-gold-light) !important; }
+.pnl-ruler [data-done="1"] p.tnum { color: var(--color-paper) !important; }
